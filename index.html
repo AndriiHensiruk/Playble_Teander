@@ -97,8 +97,6 @@
     .game-header-png { width: 90%; margin-top: 10%; margin-bottom: 5%; }
     
     .card-anchor { position: relative; width: 90%; height: 60%; perspective: 1000px; touch-action: none; z-index: 10; }
-    
-    /* Анімація навчання для картки */
     .card-tutorial-anim { animation: cardSwipeLoop 2.5s infinite ease-in-out; }
     @keyframes cardSwipeLoop {
       0%, 100% { transform: translate(0, 0) rotate(0deg); }
@@ -112,7 +110,7 @@
     .dislike-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(138, 43, 226, 0.5); opacity: 0; transition: opacity 0.1s; pointer-events: none; }
     .like-frame { position: absolute; top: 0; left: 0; width: 100%; height: 100%; box-sizing: border-box; opacity: 0; transition: opacity 0.1s; pointer-events: none; box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.8); border-radius: 25px; }
 
-    /* ІГРОВА РУКА: Знаходиться всередині анкора картки */
+    /* ІГРОВА РУКА */
     #tutorial-hand-game {
       position: absolute;
       width: 95px;
@@ -123,8 +121,7 @@
       opacity: 0;
       transition: opacity 0.2s ease;
     }
-    
-    /* Додаємо власну анімацію погойдування для руки, синхронізовану з карткою */
+
     .hand-visible { 
       opacity: 1 !important; 
       animation: handSwipeLoop 2.5s infinite ease-in-out;
@@ -238,9 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       splash.classList.add('hidden');
       isGameActive = true;
-      if (!isMuted) music.play();
-      
-      // Запуск анімації навчання (Картка та рука гойдаються разом)
+      if (!isMuted) music.play();    
       startTutorial();
     }, 400);
   };
@@ -262,7 +257,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!isGameActive) return;
     clearTimeout(idleTimer);
     
-    // При 3с простою запускаємо синхронне погойдування картки та руки
     idleTimer = setTimeout(() => {
       startTutorial();
     }, 3000); 
@@ -390,7 +384,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let count = 0; const itv = setInterval(() => { spawnParticles(null, 15, Math.random()*window.innerWidth, Math.random()*window.innerHeight*0.5, true); if (++count > 12) clearInterval(itv); }, 300);
   }
 
-  // Обробники нижніх кнопок інтерфейсу
   btnDislike.onclick = () => { stopTutorial(); performSwipe('left'); };
   btnLike.onclick = () => { stopTutorial(); performSwipe('right'); };
   btnFav.onclick = () => { 
